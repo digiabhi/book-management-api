@@ -1,0 +1,854 @@
+openapi: 3.0.3
+info:
+  title: Book Management API
+  version: 1.3.1
+  contact: {}
+paths:
+  /api/v1/users/signup:
+    post:
+      tags:
+        - Authentication
+      summary: Register user
+      description: >-
+        The API endpoint allows users to register or signup to create their
+        accounts.
+      operationId: signup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: user.email@domain.com
+                password:
+                  type: string
+                  example: test@123
+            example:
+              email: user.email@domain.com
+              password: test@123
+      responses:
+        "201":
+          description: Register user
+          headers:
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: "500"
+            Date:
+              schema:
+                type: string
+                example: "Fri, 30 Jun 2023 06:44:09 GMT"
+            ETag:
+              schema:
+                type: string
+                example: W/"1f4-1q38Sbu25p0UVmeYQmrEv2VrgPg"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-RateLimit-Limit:
+              schema:
+                type: string
+                example: "500"
+            X-RateLimit-Remaining:
+              schema:
+                type: string
+                example: "495"
+            X-RateLimit-Reset:
+              schema:
+                type: string
+                example: "1714049714"
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 201
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Successfully completed the request.
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      email:
+                        type: string
+                        example: user.email@domain.com
+                      password:
+                        type: string
+                        example: >-
+                          $2a$08$6GSmP4z7Aa0Z14pP4oUz4.6yVOdUJAw.0Hp60jYGMe3RmoKQ4FGw.
+                      createdAt:
+                        type: string
+                        example: "2023-06-30T06:42:26.163Z"
+                      updatedAt:
+                        type: string
+                        example: "2023-06-30T06:42:26.247Z"
+                  error:
+                    type: object
+                    example: {}
+              examples:
+                Register user:
+                  value:
+                    status: 201
+                    success: true
+                    message: Successfully completed the request.
+                    data:
+                      id: 1
+                      email: user.email@domain.com
+                      password: >-
+                        $2a$08$6GSmP4z7Aa0Z14pP4oUz4.6yVOdUJAw.0Hp60jYGMe3RmoKQ4FGw.
+                      updatedAt: "2024-04-25T09:49:44.967Z"
+                      createdAt: "2024-04-25T09:49:44.967Z"
+                    error: {}
+  /api/v1/users/signin:
+    post:
+      tags:
+        - Authentication
+      summary: Login user
+      description: >-
+        The API endpoint allows users to log into the application securely and
+        also returns an access token.
+
+
+        When accessing this endpoint with valid login credentials, users will
+        receive an access token in the response.
+
+
+        Additionally, the API endpoint securely sets the access token within the
+        request header for future authentication and
+        authorization purposes.
+
+
+        This functionality ensures a secure and efficient login process for
+        users, providing them with an access token that can be used to
+        authenticate subsequent API requests.
+
+
+        By securely storing the access token in header, the endpoint
+        enables automatic inclusion of the access token in future API requests,
+        eliminating the need for users to manually manage and provide the token
+        with each request.
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: user.email@domain.com
+                password:
+                  type: string
+                  example: test@123
+            example:
+              email: user.email@domain.com
+              password: test@123
+      responses:
+        "200":
+          description: Login user
+          headers:
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: "500"
+            Date:
+              schema:
+                type: string
+                example: "Fri, 30 Jun 2023 06:44:09 GMT"
+            ETag:
+              schema:
+                type: string
+                example: W/"1f4-1q38Sbu25p0UVmeYQmrEv2VrgPg"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-RateLimit-Limit:
+              schema:
+                type: string
+                example: "500"
+            X-RateLimit-Remaining:
+              schema:
+                type: string
+                example: "495"
+            X-RateLimit-Reset:
+              schema:
+                type: string
+                example: "1714049714"
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 200
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Successfully completed the request.
+                  data:
+                    type: string,
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhYmhpQHRlc3QyLmNvbSIsImlhdCI6MTcxNDA0MDA5MCwiZXhwIjoxNzE0MDQzNjkwfQ.hMM1ZNkhFAthYzM5i3eQCOKcfbAs1_b06O1RghRCOa8"
+                  error:
+                    type: object
+                    example: {}
+              examples:
+                Login user:
+                  value:
+                    status: 200
+                    success: true
+                    message: Successfully completed the request.
+                    data: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhYmhpQHRlc3QyLmNvbSIsImlhdCI6MTcxNDA0MDA5MCwiZXhwIjoxNzE0MDQzNjkwfQ.hMM1ZNkhFAthYzM5i3eQCOKcfbAs1_b06O1RghRCOa8
+                    error: {}
+  /api/v1/books:
+    get:
+      tags:
+        - Bookstore
+      summary: Get all books
+      description: >-
+        The API endpoint allows you to retrieve a list of all books.
+
+        Upon accessing this endpoint, you will receive a response containing a
+        collection of all books.
+      operationId: allBooks
+      parameters:
+        - name: x-access-token
+          in: header
+          required: true
+        - name: sort
+          in: query
+          schema:
+            type: string
+            example: author_desc,publicationYear_asc
+        - name: author
+          in: query
+          schema:
+            type: string
+            example: Adam Json
+        - name: publicationYear
+          in: query
+          schema:
+            type: number
+            example: 2024
+      responses:
+        "200":
+          description: Get all books
+          headers:
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: "500"
+            Date:
+              schema:
+                type: string
+                example: "Fri, 30 Jun 2023 06:44:09 GMT"
+            ETag:
+              schema:
+                type: string
+                example: W/"1f4-1q38Sbu25p0UVmeYQmrEv2VrgPg"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-RateLimit-Limit:
+              schema:
+                type: string
+                example: "500"
+            X-RateLimit-Remaining:
+              schema:
+                type: string
+                example: "495"
+            X-RateLimit-Reset:
+              schema:
+                type: string
+                example: "1714049714"
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 200
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Successfully completed the request.
+                  data:
+                    type: array,
+                    properties:
+                      type: object
+                      id:
+                        type: number
+                        example: 1
+                      title:
+                        type: string
+                        example: Alanna Saves the Day
+                      author:
+                        type: string
+                        example: Adam Json
+                      publicationYear:
+                        type: number
+                        example: 2024
+                      createdAt:
+                        type: string
+                        example: "2023-06-30T06:42:26.163Z"
+                      updatedAt:
+                        type: string
+                        example: "2023-06-30T06:42:26.247Z"
+                  error:
+                    type: object
+                    example: {}
+              examples:
+                Get all Books:
+                  value:
+                    status: 200
+                    success: true
+                    message: Successfully completed the request
+                    data:
+                      - id: 1
+                        title: Alanna Saves the Day
+                        author: Adam Json
+                        publicationYear: 2024
+                        updatedAt: "2024-04-25T09:49:44.967Z"
+                        createdAt: "2024-04-25T09:49:44.967Z"
+
+                      - id: 2
+                        title: Alanna Saves the Day
+                        author: Adam Json
+                        publicationYear: 2024
+                        updatedAt: "2024-04-25T09:49:44.967Z"
+                        createdAt: "2024-04-25T09:49:44.967Z"
+                    error: {}
+  /api/v1/books/{id}:
+    get:
+      tags:
+        - Bookstore
+      summary: Get specific book
+      description: >-
+        The API endpoint retrieves a book based on the book ID provided as a
+        path variable.
+
+
+        By accessing this endpoint and specifying a valid book ID, you will
+        receive a response containing the details of the corresponding book.
+      operationId: specificBookById
+      parameters:
+        - name: x-access-token
+          in: header
+          required: true
+        - name: sort
+          in: query
+          schema:
+            type: string
+            example: author_desc,publicationYear_asc
+        - name: author
+          in: query
+          schema:
+            type: string
+            example: Adam Json
+        - name: publicationYear
+          in: query
+          schema:
+            type: number
+            example: 2024
+      responses:
+        "200":
+          description: Get specific book
+          headers:
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: "500"
+            Date:
+              schema:
+                type: string
+                example: "Fri, 30 Jun 2023 06:44:09 GMT"
+            ETag:
+              schema:
+                type: string
+                example: W/"1f4-1q38Sbu25p0UVmeYQmrEv2VrgPg"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-RateLimit-Limit:
+              schema:
+                type: string
+                example: "500"
+            X-RateLimit-Remaining:
+              schema:
+                type: string
+                example: "495"
+            X-RateLimit-Reset:
+              schema:
+                type: string
+                example: "1714049714"
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 200
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Successfully completed the request.
+                  data:
+                    type: object,
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      title:
+                        type: string
+                        example: Alanna Saves the Day
+                      author:
+                        type: string
+                        example: Adam Json
+                      publicationYear:
+                        type: number
+                        example: 2024
+                      createdAt:
+                        type: string
+                        example: "2023-06-30T06:42:26.163Z"
+                      updatedAt:
+                        type: string
+                        example: "2023-06-30T06:42:26.247Z"
+                  error:
+                    type: object
+                    example: {}
+              examples:
+                Get specific Books:
+                  value:
+                    status: 200
+                    success: true
+                    message: Successfully completed the request
+                    data:
+                      id: 1
+                      title: Alanna Saves the Day
+                      author: Adam Json
+                      publicationYear: 2024
+                      updatedAt: "2024-04-25T09:49:44.967Z"
+                      createdAt: "2024-04-25T09:49:44.967Z"
+                    error: {}
+  /api/v1/books/create:
+    post:
+      tags:
+        - Bookstore
+      summary: Create new book
+      description: >-
+        The API endpoint allows you to create new book.
+      operationId: createNewBook
+      parameters:
+        - name: x-access-token
+          in: header
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+                - author
+                - publicationYear
+              properties:
+                title:
+                  type: string
+                  example: New Book
+                author:
+                  type: string
+                  example: test@123
+                publicationYear:
+                  type: number
+                  example: 2024
+      responses:
+        "201":
+          description: Create new Book
+          headers:
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: "500"
+            Date:
+              schema:
+                type: string
+                example: "Fri, 30 Jun 2023 06:44:09 GMT"
+            ETag:
+              schema:
+                type: string
+                example: W/"1f4-1q38Sbu25p0UVmeYQmrEv2VrgPg"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-RateLimit-Limit:
+              schema:
+                type: string
+                example: "500"
+            X-RateLimit-Remaining:
+              schema:
+                type: string
+                example: "495"
+            X-RateLimit-Reset:
+              schema:
+                type: string
+                example: "1714049714"
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 201
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Successfully completed the request
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                        example: 1
+                      title:
+                        type: string
+                        example: New Book
+                      author:
+                        type: string
+                        example: New Author
+                      publicationYear:
+                        type: number
+                        example: 2024
+                      createdAt:
+                        type: string
+                        example: "2023-06-30T06:42:26.163Z"
+                      updatedAt:
+                        type: string
+                        example: "2023-06-30T06:42:26.247Z"
+                  error:
+                    type: object
+                    example: {}
+              examples:
+                Create new Book:
+                  value:
+                    status: 201
+                    success: true
+                    message: Successfully completed the request.
+                    data:
+                      id: 1
+                      title: New Book
+                      author: New Author
+                      publicationYear: 2001
+                      updatedAt: "2024-04-25T09:49:44.967Z"
+                      createdAt: "2024-04-25T09:49:44.967Z"
+                    error: {}
+  /api/v1/books/update/{id}:
+    patch:
+      tags:
+        - Bookstore
+      summary: Update book
+      description: >-
+        The API endpoint allows you to update a specific book.
+      operationId: updateBook
+      parameters:
+        - name: x-access-token
+          in: header
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: New Book
+                author:
+                  type: string
+                  example: test@123
+                publicationYear:
+                  type: number
+                  example: 2024
+      responses:
+        "201":
+          description: Update Book
+          headers:
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: "500"
+            Date:
+              schema:
+                type: string
+                example: "Fri, 30 Jun 2023 06:44:09 GMT"
+            ETag:
+              schema:
+                type: string
+                example: W/"1f4-1q38Sbu25p0UVmeYQmrEv2VrgPg"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-RateLimit-Limit:
+              schema:
+                type: string
+                example: "500"
+            X-RateLimit-Remaining:
+              schema:
+                type: string
+                example: "495"
+            X-RateLimit-Reset:
+              schema:
+                type: string
+                example: "1714049714"
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 201
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Successfully completed the request
+                  data:
+                    type: string
+                    example: "Book data updated successfully"
+                  error:
+                    type: object
+                    example: {}
+              examples:
+                Update Book:
+                  value:
+                    status: 200
+                    success: true
+                    message: Successfully completed the request.
+                    data: Book data updated successfully
+                    error: {}
+  /api/v1/books/delete/{id}:
+    delete:
+      tags:
+        - Bookstore
+      summary: Delete book
+      description: >-
+        The API endpoint allows you to delete a specific book.
+      operationId: deleteBook
+      parameters:
+        - name: x-access-token
+          in: header
+          required: true
+      responses:
+        "200":
+          description: Delete Book
+          headers:
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Content-Length:
+              schema:
+                type: string
+                example: "500"
+            Date:
+              schema:
+                type: string
+                example: "Fri, 30 Jun 2023 06:44:09 GMT"
+            ETag:
+              schema:
+                type: string
+                example: W/"1f4-1q38Sbu25p0UVmeYQmrEv2VrgPg"
+            Keep-Alive:
+              schema:
+                type: string
+                example: timeout=5
+            X-RateLimit-Limit:
+              schema:
+                type: string
+                example: "500"
+            X-RateLimit-Remaining:
+              schema:
+                type: string
+                example: "495"
+            X-RateLimit-Reset:
+              schema:
+                type: string
+                example: "1714049714"
+            X-Powered-By:
+              schema:
+                type: string
+                example: Express
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 201
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: Successfully completed the request
+                  data:
+                    type: string
+                    example: "Book deleted successfully"
+                  error:
+                    type: object
+                    example: {}
+              examples:
+                Delete Book:
+                  value:
+                    status: 200
+                    success: true
+                    message: Successfully completed the request.
+                    data: Book deleted successfully
+                    error: {}
+  /api/v1/info:
+  get:
+    summary: ⛑️ healthcheck
+    description: >-
+      This API endpoint is commonly used to determine the health status or
+      availability of a system or service.
+
+
+      It is a simple and lightweight endpoint designed to perform a quick health
+      check of the application or infrastructure.
+    operationId: healthcheck
+    responses:
+      "200":
+        description: healthcheck
+        headers:
+          Connection:
+            schema:
+              type: string
+              example: keep-alive
+          Content-Length:
+            schema:
+              type: string
+              example: "77"
+          Date:
+            schema:
+              type: string
+              example: "Thu, 01 Jun 2023 05:43:54 GMT"
+          ETag:
+            schema:
+              type: string
+              example: W/"4d-HsIML77lP0nFnY+in7vJJjHcLbQ"
+          Keep-Alive:
+            schema:
+              type: string
+              example: timeout=5
+          X-Powered-By:
+            schema:
+              type: string
+              example: Express
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+                  example: OK
+                message:
+                  type: string
+                  example: Health check passed
+                status:
+                  type: number
+                  example: 200
+                success:
+                  type: boolean
+                  example: true
+            examples:
+              healthcheck:
+                value:
+                  data: OK
+                  message: Health check passed
+                  status: 200
+                  success: true
+tags:
+  - name: Authentication
+    description: This section encompasses all the APIs related to user authentication.
+  - name: Bookstore
+    description: >-
+      This section houses all the APIs required for CRUD operations on Bookstore
+      application.
